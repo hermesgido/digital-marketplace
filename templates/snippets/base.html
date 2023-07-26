@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css'><link rel="stylesheet" href="./style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <title>Digital Marketplace</title>
+
+    <style>
+        body {
+	font-size: 18px;
+  }
+  
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="{% url 'home' %}">
+            <img height="60" src="{% static "img/logo2.png" %}" alt="" srcset="">
+        </a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'home' %}"><i class="fa-solid fa-house"></i></i>Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'add_product' %}"><i class="far fa-address-book"></i>Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i></i>Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket"></i>Register</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white" style="background-color: #1c2331">
+
+        <section class="d-flex justify-content-between p-4" style="background-color: #63b51ce">
+
+        </section>
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5" style="font-size: 18px;">
+                <!-- Grid row -->
+                <div class="d-flex flex-wrap mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold">SmartShop</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p>
+                            Buy and sell digital Products At your comfort!
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="text-start col-md-2  col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold">Products</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none">
+                                <i class="fa-solid fa-check" style="color: #ffffff;"></i> Youtube</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>  Websites/Blogs</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Social Accounts</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Other Digital</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="text-start col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold">Useful links</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Your Account</a>
+                        </p>
+                       
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Escrow</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Sell Product</a>
+                        </p>
+                    </div>
+
+
+                    <div class="text-start col-md-2  col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold">More</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Terms & Conds</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Privacy Police</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Disclaimer</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Help</a>
+                            </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="text-start col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                      
+                        <h6 class="text-uppercase fw-bold">Contact</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p><i class="fas fa-home mr-3"></i> Dar Es Salaam, Tz</p>
+                        <p><i class="fas fa-envelope mr-3"></i> info@smartshop.co.tz</p>
+                        <p><i class="fas fa-phone mr-3"></i> + 255621189850</p>
+                        <p><i class="fas fa-print mr-3"></i> + 255621189850</p>
+                    </div>
+
+
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="text-start col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        
+                    </div>
+
+                  
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2023 Copyright:
+
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <script src='https://code.jquery.com/jquery-3.6.1.min.js'></script>
+
+<script>
+    
+// ---------Responsive-navbar-active-animation-----------
+function test(){
+	var tabsNewAnim = $('#navbarSupportedContent');
+	var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+	var activeItemNewAnim = tabsNewAnim.find('.active');
+	var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+	var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+	var itemPosNewAnimTop = activeItemNewAnim.position();
+	var itemPosNewAnimLeft = activeItemNewAnim.position();
+	$(".hori-selector").css({
+		"top":itemPosNewAnimTop.top + "px", 
+		"left":itemPosNewAnimLeft.left + "px",
+		"height": activeWidthNewAnimHeight + "px",
+		"width": activeWidthNewAnimWidth + "px"
+	});
+	$("#navbarSupportedContent").on("click","li",function(e){
+		$('#navbarSupportedContent ul li').removeClass("active");
+		$(this).addClass('active');
+		var activeWidthNewAnimHeight = $(this).innerHeight();
+		var activeWidthNewAnimWidth = $(this).innerWidth();
+		var itemPosNewAnimTop = $(this).position();
+		var itemPosNewAnimLeft = $(this).position();
+		$(".hori-selector").css({
+			"top":itemPosNewAnimTop.top + "px", 
+			"left":itemPosNewAnimLeft.left + "px",
+			"height": activeWidthNewAnimHeight + "px",
+			"width": activeWidthNewAnimWidth + "px"
+		});
+	});
+}
+// $(document).ready(function(){
+// 	setTimeout(function(){ test(); });
+// });
+// $(window).on('resize', function(){
+// 	setTimeout(function(){ test(); }, 500);
+// });
+// $(".navbar-toggler").click(function(){
+// 	$(".navbar-collapse").slideToggle(300);
+// 	setTimeout(function(){ test(); });
+// });
+
+
+
+// --------------add active class-on another-page move----------
+jQuery(document).ready(function($){
+	// Get current path and find target link
+	var path = window.location.pathname.split("/").pop();
+
+	// Account for home page with empty path
+	if ( path == '' ) {
+		path = 'index.html';
+	}
+
+	var target = $('#navbarSupportedContent ul li a[href="'+path+'"]');
+	// Add active class to target link
+	target.parent().addClass('active');
+});
+
+
+
+
+// Add active class on another page linked
+// ==========================================
+// $(window).on('load',function () {
+//     var current = location.pathname;
+//     console.log(current);
+//     $('#navbarSupportedContent ul li a').each(function(){
+//         var $this = $(this);
+//         // if the current path is like this link, make it active
+//         if($this.attr('href').indexOf(current) !== -1){
+//             $this.parent().addClass('active');
+//             $this.parents('.menu-submenu').addClass('show-dropdown');
+//             $this.parents('.menu-submenu').parent().addClass('active');
+//         }else{
+//             $this.parent().removeClass('active');
+//         }
+//     })
+// });
+
+
+
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+
+</body>
+
+
+</html>
+
+
+</body>
+
+</html>
