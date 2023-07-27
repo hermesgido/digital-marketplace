@@ -64,9 +64,9 @@ if  IN_PRODUCTION:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'mydatabase',
-            'USER': 'mydatabaseuser',
-            'PASSWORD': 'mypassword',
+            'NAME': 'digitaldb',
+            'USER': 'digitaldb',
+            'PASSWORD': 'digitaldb',
             'HOST': 'localhost',
             'PORT': '',
         }

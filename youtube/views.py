@@ -201,10 +201,7 @@ def edit_youtube_product(request, id):
     
     return render(request, 'edit_youtube_product.html', context)
 
-
-
-
-
+ 
 @login_required
 def profile(request):
     your_products = YoutubeProduct.objects.all()
