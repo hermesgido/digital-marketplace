@@ -233,7 +233,7 @@ def login_view(request):
                 login(request, user)
                 messages.success(request, "Successfully logged in")
                 return redirect(home)
-            messages.error(request, "Enter corect credentials")
+            messages.error(request, "Invalid credentials")
             return redirect(login_view)
         messages.error(request, "Enter corect credentials")
         return redirect(login_view)
@@ -243,17 +243,19 @@ def register_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        phone = request.POST.get('phone')
+        phone = request.POST.get('phone_number')
         if email is not None and password is not None and phone is not None:
             if User.objects.filter(username=email).exists():
                 messages.success(request, "User already exists")
                 return redirect(register_view)
             user = User.objects.create_user(username=email, password=password, email=email)
             user.save()
-            user_info = UserInfo.objects.create(user=user)
+            user_info = UserInfo.objects.create(user=user, phone_number=phone, email=email)
             user_info.save()
-            messages.error(request, "Successfully registered")
-        return redirect(register_view)
+            messages.success(request, "Successfully registered")
+            return redirect(login_view)
+        else:
+            messages.error(request, "All fields are required")
     
     return render(request, 'register.html')
 
