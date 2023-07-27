@@ -1,8 +1,9 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
-from youtube.form import YoutubeProductForm
+from youtube.form import UserInfoForm, YoutubeProductForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
@@ -10,57 +11,6 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from youtube.models import UserInfo, YoutubeProduct
-
-# YOUTUBE_API_KEY = "AIzaSyA0ldDX0J6CYiiDxnyNjlKJo8qy2Z_s3lc"
-
-
-# def get_youtube_client():
-#     return build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-
-# youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-
-# def get_channel_id_from_video_id(video_id):
-#     try:
-#         response = youtube.videos().list(
-#             part='snippet',
-#             id=video_id
-#         ).execute()
-#         if 'items' in response and len(response['items']) > 0:
-#             return response['items'][0]['snippet']['channelId']
-#         else:
-#             return None
-#     except HttpError as e:
-#         print('An HTTP error occurred:\n', e)
-
-
-# def get_channel_statistics(youtube, channel_id):
-#     try:
-#         response = youtube.channels().list(
-#             part='statistics,snippet',
-#             id=channel_id
-#         ).execute()
-#         return response['items'][0]
-#     except HttpError as e:
-#         print('An HTTP error occurred:\n', e)
-#     video_id = 'B2G6PppB6RI'
-#     youtube = get_youtube_client()
-#     channel_id = get_channel_id_from_video_id(video_id)    
-#     if channel_id:
-#         print('Channel ID:', channel_id)
-#         channel_info = get_channel_statistics(youtube, channel_id)
-
-#         # Extracting variables from channel_info dictionary
-#         channel_snippet = channel_info['snippet']
-#         channel_statistics = channel_info['statistics']
-
-#         # Print the extracted variables
-#         print('Channel Snippet:', channel_snippet)
-#         print('Channel Statistics:', channel_statistics)
-#     else:
-#         print('Channel not found.')
-
-# from googleapiclient.discovery import build
-# from googleapiclient.errors import HttpError
 
 YOUTUBE_API_KEY = "AIzaSyA0ldDX0J6CYiiDxnyNjlKJo8qy2Z_s3lc"
 
@@ -92,12 +42,28 @@ def get_channel_info_from_video_id(video_id):
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    channels = YoutubeProduct.objects.all()
+    
+    
+    context = {'channels': channels}
+    return render(request, 'index.html', context)
 
 
-def product(request):
-    return render(request, 'product.html')
+def product(request, id):
+    channel = YoutubeProduct.objects.get(id=id)
+    context = {'channel': channel}
+    return render(request, 'product.html', context)
 
+    
+def parse_iso8601_timestamp(timestamp):
+    try:
+        dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+        return dt.strftime('%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        return None
+
+    
+@login_required
 def add_product(request):
     form = YoutubeProductForm()
     if request.method == 'POST':
@@ -121,7 +87,7 @@ def add_product(request):
                 channel_published_date = channel_info['snippet'].get('publishedAt', None)
                 channel_video_count = channel_info['statistics']['videoCount']
                 channel_custom_url = channel_info['snippet'].get('customUrl', None)
-                thumbnail_default_url = channel_info['snippet']['thumbnails']['default']['url']
+                thumbnail_default_url = channel_info['snippet']['thumbnails']['high']['url']
                 print(f"channel_name:{channel_name}, channel_id:{channel_id}, channel_published_date:\
                     {channel_published_date}, channel_video_count:{channel_video_count}, \
                         channel_custom_url:{channel_custom_url}, thumbnail_default_url:{thumbnail_default_url}, \
@@ -129,10 +95,11 @@ def add_product(request):
                                 channel_category:{channel_category}, subscribers:{subscribers},\
                                     total_views:{total_views}")
                 
-                
-                datetime_obj = datetime.strptime(channel_published_date, "%Y-%m-%dT%H:%M:%SZ")
-                formatted_date = datetime_obj.strftime("%Y-%m-%d")
-                print(formatted_date) 
+                print(f"Date: {channel_published_date}")
+                # datetime_obj = datetime.strptime(channel_published_date, "%Y-%m-%dT%H:%M:%SZ")
+                # formatted_date = datetime_obj.strftime("%Y-%m-%d")
+                formatted_date = parse_iso8601_timestamp(channel_published_date)
+                print(f"Date fom: {formatted_date}")
                 YoutubeProduct.objects.create(
                     channel_id=channel_id,
                     channel_name=channel_name,
@@ -149,7 +116,7 @@ def add_product(request):
                     price = form.cleaned_data["price"],
                     revenue_per_month = form.cleaned_data["revenue_per_month"],
                     any_video_id = form.cleaned_data["any_video_id"],
-                    monetization = form.cleaned_data["monetization"]
+                    monetization = form.cleaned_data["monetization"],
                     )
                 
             else:
@@ -164,13 +131,95 @@ def add_product(request):
     context = {'form': form}
     return render(request, 'add_product.html', context)
 
-def profile(request):
-    form = YoutubeProductForm()
+@login_required
+def edit_youtube_product(request, id):
+    current_channel = YoutubeProduct.objects.get(id=id)
+    form = YoutubeProductForm(instance = current_channel)
     if request.method == 'POST':
-        form = YoutubeProductForm(request.POST)
+        form = YoutubeProductForm(request.POST, instance = current_channel)
+        if form.is_valid():
+            data = form.save(commit=False)
+            video_id = form.cleaned_data['any_video_id']
+            channel_info = get_channel_info_from_video_id(video_id)
+            if channel_info:
+                print('Channel ID:', channel_info['id'])
+                print('Channel Snippet:', channel_info['snippet'])
+                print('Channel Statistics:', channel_info['statistics'])
+                # Extracting data from channel_info dictionary
+                channel_name = channel_info['snippet']['title']
+                channel_id = channel_info['id']
+                total_views = channel_info['statistics']['viewCount']
+                subscribers = channel_info['statistics']['subscriberCount']
+                channel_category = channel_info['snippet'].get('categoryId', None)
+                channel_description = channel_info['snippet'].get('description', None)
+                channel_country = channel_info['snippet'].get('country', None)
+                channel_published_date = channel_info['snippet'].get('publishedAt', None)
+                channel_video_count = channel_info['statistics']['videoCount']
+                channel_custom_url = channel_info['snippet'].get('customUrl', None)
+                thumbnail_default_url = channel_info['snippet']['thumbnails']['high']['url']
+                ##thumbnail_default_url = channel_info['snippet']['thumbnails']['default']['url'] 
+                print(f"channel_name:{channel_name}, channel_id:{channel_id}, channel_published_date:\
+                    {channel_published_date}, channel_video_count:{channel_video_count}, \
+                        channel_custom_url:{channel_custom_url}, thumbnail_default_url:{thumbnail_default_url}, \
+                            channel_country:{channel_country}, channel_description:{channel_description}, \
+                                channel_category:{channel_category}, subscribers:{subscribers},\
+                                    total_views:{total_views}")
+                
+                
+                datetime_obj = datetime.strptime(channel_published_date, "%Y-%m-%dT%H:%M:%SZ")
+                formatted_date = datetime_obj.strftime("%Y-%m-%d")
+                print(formatted_date)
+                
+                current_channel.channel_id = channel_id
+                current_channel.channel_name = channel_name
+                current_channel.views = total_views
+                current_channel.subscibers = subscribers
+                current_channel.category = channel_category
+                current_channel.description = channel_description
+                current_channel.channel_country = channel_country
+                current_channel.started_date = formatted_date
+                current_channel.total_video_number = channel_video_count
+                current_channel.channel_custom_url = channel_custom_url
+                current_channel.thumbnail_default_url = thumbnail_default_url
+                current_channel.your_description = form.cleaned_data["your_description"]
+                current_channel.price = form.cleaned_data["price"]
+                current_channel.revenue_per_month = form.cleaned_data["revenue_per_month"]
+                current_channel.any_video_id = form.cleaned_data["any_video_id"]
+                current_channel.monetization = form.cleaned_data["monetization"]
+                current_channel.save()
+                messages.success(request, "Channel updated successfully")
+                return redirect(profile)
+            else:
+                print('Channel not found.')
+                messages.error(request, "Channel not found enter valid video id")
+                form = YoutubeProductForm()
+                return redirect(add_product)
+        else:
+            form = YoutubeProductForm(instance = current_channel)
+            messages.error(request, "Form not valid")
+    context = {'form': form}    
+    
+    return render(request, 'edit_youtube_product.html', context)
+
+
+
+
+
+@login_required
+def profile(request):
+    your_products = YoutubeProduct.objects.all()
+    form = UserInfoForm(instance=request.user.userinfo)
+    if request.method == 'POST':
+        form = UserInfoForm(request.POST, instance=request.user.userinfo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile Updated successfully")
+            return redirect(profile)
+        else:
+            messages.error(request, f"ERROR: {form.errors}")
+            form = UserInfoForm(instance=request.user.userinfo)
         
-        
-    context = {'form': form}
+    context = {'form': form, 'your_products':your_products}
     return render(request, 'profile.html', context)
 
 

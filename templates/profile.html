@@ -3,143 +3,107 @@
 
 {% block content %}
 <style>
-    @media (min-width: 768px) {
-      /* Styles for screens larger than or equal to 768px width (non-mobile) */
-      .cx {
-        width: 500px;
-      }
+  @media (min-width: 768px) {
+
+    /* Styles for screens larger than or equal to 768px width (non-mobile) */
+    .cx {
+      width: 500px;
     }
-
-    @media (max-width: 768px) {
-        /* Styles for screens larger than or equal to 768px width (non-mobile) */
-        .cx {
-          width: 400px;
-        }
-      }
-
-      .btn-success2{
-        height: 60px;
-        width: 500px;
-        color: #fff;
-        font-size: 22px;
-        background-color: #1c2331;
-      }
-
-
-      
-#exTab1 .tab-content {
-    color : white;
-    background-color: #428bca;
-    padding : 5px 15px;
   }
-  
-  #exTab2 h3 {
-    color : white;
-    background-color: #428bca;
-    padding : 5px 15px;
+
+  @media (max-width: 768px) {
+
+    /* Styles for screens larger than or equal to 768px width (non-mobile) */
+    .cx {
+      width: 400px;
+    }
   }
-  
-  /* remove border radius for the tab */
-  
-  #exTab1 .nav-pills > li > a {
-    border-radius: 0;
+
+  .btn-success2 {
+    height: 60px;
+    width: 410px;
+    color: #fff;
+    font-size: 22px;
+    background-color: #1c2331;
   }
-  
-  /* change border radius for the tab , apply corners on top*/
-  
-  #exTab3 .nav-pills > li > a {
-    border-radius: 4px 4px 0 0 ;
+  .cc{
+    height: 70px;
+    padding: 10px;
+    background-color: yellow;
+    border-radius: 12px;
   }
-  
-  #exTab3 .tab-content {
-    color : white;
-    background-color: #428bca;
-    padding : 5px 15px;
-  }
-  .active{
-   background-color: #428bca;
-  }
-  
-
-
-  </style>
-  
-
-  
-<div id="exTab3" class="container">	
-  <ul  class="nav nav-pills">
-			<li class="active p-1" ">
-        <a class="text-decoration-none" href="#1b" data-toggle="tab">
-            Profile
-        </a>
-			</li>
-			<li class="p-1">
-                <a class="text-decoration-none" href="#2b" data-toggle="tab">Products</a>
-			</li>
-			
-		</ul>
-
-			<div class="tab-content clearfix">
-			  <div class="tab-pane active" id="1b">
-          <h3>tab 1</h3>
-				</div>
-				<div class="tab-pane" id="2b">
-          <h3>tab 2</h3>
-				</div>
-        
-			</div>
-  </div>
+</style>
 
 
 
-<div class="d-flex justify-content-center align-items-center pg-3 p-3 m-3 hover-shadow">
-    <div class="row no-gutters">
-        <div class="card p-3 cx"">
+<div class="col-md-12 d-flex justify-content-center align-items-center pg-3 p-3 m-3 hover-shadow">
+  <div class="row no-gutters">
+    <div class="card p-3 cx"">
 
-            <div id="exTab3" class="container">	
-                <ul  class="nav nav-pills">
-                          <li class="active p-1" ">
-                      <a class="text-decoration-none" href="#1b" data-toggle="tab">
-                          Profile
-                      </a>
-                          </li>
-                          <li class="p-1">
-                              <a class="text-decoration-none" href="#2b" data-toggle="tab">Products</a>
-                          </li>
-                          
-                      </ul>
-              
-                          <div class="tab-content clearfix">
-                            <div class="tab-pane active" id="1b">
+          <div class=" container mt-5">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#" data-toggle="tab" data-target="#tab1">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="tab" data-target="#tab2">Products</a>
+        </li>
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="tab" data-target="#tab3">Link</a>
+        </li>
+        {% endcomment %}
+      </ul>
 
-
-                                <h5 class="text-center">Sell Youtube Channel</h5>
-                                <form action="" method="post">
-                                    {% for field in form %}
-                                    <div class="form-group mb-2">
-                                        <label for="">{{field.label}}</label>
-                                        {{field}}
-                                    </div>
-                                    {% endfor %}
-                                    <br>
-                                    <div class="d-flex justify-content-center">
-                                        <button class="btn btn-success2">SUBMIT</button>
-                                    </div>
-                                </form>
-                            
-                            </div>
-                              <div class="tab-pane" id="2b">
-                        <h3>tab 2</h3>
-                              </div>
-                      
-                          </div>
-                </div>
-
-
-            
+      <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="tab1">
+          <h4>Personal Ddetails</h4>
+          {% include 'snippets/messages.html' %}
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{form}}
+            <br>
+            <button class="btn-success2" type="submit">UPDATE</button>
+            <br>
+          </form>
+          {% comment %}
+           <p class="p-2">This is the content of the active tab.</p> 
+           {% endcomment %}
         </div>
-    </div>
-</div>
+        <div class="tab-pane fade" id="tab2">
+          <h4>Your Products List</h4>
 
+          
+          {% if your_products %}
+          
+          {% for pr in your_products %}
+          <div class="cc">
+            <h6>
+              Channel Name: {{pr.channel_name}} <br>
+               <button type="submit" class="btn btn-primary"><a class="text-white text-decoration-none" href="{% url 'edit_youtube_product' pr.id %}" >Edit</a></button>  <button class="btn btn-primary">Delete</button>
+            </h6>
+          </div>
+          <br>
+          {% endfor %}
+            
+            
+          {% endif %}
+            
+
+          <div class="alert alert-info alert-dissmisable">
+            You Currently dont have any product
+          </div>
+        </div>
+        {% comment %} <div class="tab-pane fade" id="tab3">
+          <h4>Content for Link Tab</h4>
+          <p>This is the content of the link tab.</p>
+        </div> {% endcomment %}
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 {% endblock %}

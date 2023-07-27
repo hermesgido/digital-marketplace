@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'django.contrib.humanize',
+    
     'youtube',
 ]
 
@@ -77,7 +79,7 @@ else:
         }
     }
 
-
+LOGIN_URL = '/login/'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

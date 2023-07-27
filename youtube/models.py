@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,6 +7,9 @@ class UserInfo(models.Model):
     full_name = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=200, blank=True, null=True)
     phone_number = models.CharField(max_length=200, blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
+    price = (("USD", "USD"), ("TZS", "TZS"), ("KES`,", "KES"),)
+    display_price = models.CharField(max_length=200, blank=True, choices=price)
     
 # Create your models here.
 class Category(models.Model):
@@ -19,7 +23,7 @@ class YoutubeProduct(models.Model):
     channel_id = models.CharField(max_length=200, blank=True, null=True)
     subscibers = models.PositiveIntegerField(null=True, blank=True)
     views = models.PositiveIntegerField(null=True, blank=True)
-    started_date = models.DateField(null=True, blank=True)
+    started_date = models.DateTimeField(null=True, blank=True)
     description = models.TextField(max_length=200, blank=True, null=True)
     channel_country = models.CharField(max_length=200, blank=True, null=True)
     your_description = models.TextField(max_length=200, blank=True, null=True)
@@ -35,4 +39,16 @@ class YoutubeProduct(models.Model):
     ch = (("Pending", "Pending"), ("Approved", "Approved"),("Sold", "Sold"),)
     status = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="Pending")
     
+    @property
+    def get_age(self):
+        # Convert the started_date to a datetime object for accurate subtraction
+        started_datetime = datetime.combine(self.started_date, datetime.min.time())
+
+        # Calculate the difference between the current date and the started_date
+        time_difference = datetime.today() - started_datetime
+
+        # Convert the difference to years (approximate value)
+        age_in_years = int(time_difference.days / 365.25)
+
+        return age_in_years
     

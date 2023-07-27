@@ -20,3 +20,9 @@ class YoutubeProductForm(MainForm):
     class Meta:
         model = YoutubeProduct
         fields = ['any_video_id', 'your_description', 'revenue_per_month',  'monetization', 'price',]
+        
+class UserInfoForm(MainForm):
+    class Meta:
+        model = UserInfo
+        exclude = ['user']
+    
