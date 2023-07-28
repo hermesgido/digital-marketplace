@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-h*k8akbq(3hq2v)n_2^w#z0phj388g7%&u5llb=-u@l5qauyko
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['smartshop.co.tz', 'www.smartshop.co.tz'] if IN_PRODUCTION else ['*']
 
 
 INSTALLED_APPS = [
@@ -60,6 +60,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'digital.wsgi.application'
 
+
 if  IN_PRODUCTION:
     DATABASES = {
         'default': {
@@ -71,13 +72,29 @@ if  IN_PRODUCTION:
             'PORT': '',
         }
     }
+    STATIC_URL = '/static/'
+    STATIC_ROOT = '/home/hermes/digital-marketplace/static'
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static/')
+    ]
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    
+
 else:
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    STATIC_URL = 'static/'
+    STATICFILES_DIRS =[
+        os.path.join(BASE_DIR, 'static/')
+    ]
+    
+
 
 LOGIN_URL = '/login/'
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,12 +120,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR, 'static/')
-]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
