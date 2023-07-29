@@ -41,14 +41,11 @@ class YoutubeProduct(models.Model):
     
     @property
     def get_age(self):
-        # Convert the started_date to a datetime object for accurate subtraction
+        if self.started_date is None:
+            return 1
+
         started_datetime = datetime.combine(self.started_date, datetime.min.time())
-
-        # Calculate the difference between the current date and the started_date
         time_difference = datetime.today() - started_datetime
-
-        # Convert the difference to years (approximate value)
         age_in_years = int(time_difference.days / 365.25)
-
         return age_in_years
     
