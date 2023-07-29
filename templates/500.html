@@ -1,0 +1,45 @@
+{% extends 'snippets/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    @media (min-width: 768px) {
+      /* Styles for screens larger than or equal to 768px width (non-mobile) */
+      .cx {
+        width: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+        /* Styles for screens larger than or equal to 768px width (non-mobile) */
+        .cx {
+          width: 400px;
+        }
+      }
+
+      .btn-success2{
+        height: 60px;
+        width: 300px;
+        color: #fff;
+        font-size: 22px;
+        background-color: #1c2331;
+      }
+
+  </style>
+  
+
+
+<div class="d-flex justify-content-center align-items-center pg-3 p-3 m-3 hover-shadow">
+    <div class="row no-gutters text-center">
+
+        <div class="d-block align-items-center">
+            <h2><i class="fa-solid fa-triangle-exclamation" style="color: #e60a0a;"></i></h2>
+            <h2>Something Went Wong Error: 500 </h2>
+            <button class="btn-success2"><a class="text-white text-decoration-none" href="{% url 'home' %}">GO HOME</a></button>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock %}

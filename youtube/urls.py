@@ -12,3 +12,14 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
 
 ]
+
+
+from django.urls import re_path
+from youtube.views import error_404, error_500
+
+
+urlpatterns += [
+    re_path(r'^.+$', error_404),
+    re_path(r'^.+$', error_500),
+
+]

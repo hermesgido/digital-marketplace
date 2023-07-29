@@ -12,7 +12,7 @@ IN_PRODUCTION = int(config('IN_PRODUCTION'))
 
 SECRET_KEY = 'django-insecure-h*k8akbq(3hq2v)n_2^w#z0phj388g7%&u5llb=-u@l5qauyko'
 
-DEBUG = True
+DEBUG = False if not  IN_PRODUCTION else False
 
 ALLOWED_HOSTS = ['smartshop.co.tz', 'www.smartshop.co.tz'] if IN_PRODUCTION else ['*']
 

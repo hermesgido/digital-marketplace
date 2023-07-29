@@ -257,3 +257,15 @@ def register_view(request):
     return render(request, 'register.html')
 
 
+# In youtube/views.py
+
+from django.shortcuts import render
+from django.http import HttpResponseNotFound
+
+def error_404(request):
+
+    return render(request, '404.html')
+
+def error_500(request):
+
+    return render(request, '500.html')

@@ -42,7 +42,7 @@ class YoutubeProduct(models.Model):
     @property
     def get_age(self):
         if self.started_date is None:
-            return 1
+            return 3
         else:
             started_datetime = datetime.combine(self.started_date, datetime.min.time())
             time_difference = datetime.today() - started_datetime
