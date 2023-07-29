@@ -48,4 +48,13 @@ class YoutubeProduct(models.Model):
             time_difference = datetime.today() - started_datetime
             age_in_years = int(time_difference.days / 365.25)
             return age_in_years
+
+
+class Contact(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    product = models.ForeignKey(YoutubeProduct, null=True, blank=True, on_delete=models.CASCADE)
+    message = models.CharField(max_length=200, blank=True, null=True)
+    your_price_offer = models.CharField(max_length=200)
     
+    def __str__(self):
+        return self.message

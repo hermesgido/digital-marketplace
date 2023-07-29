@@ -25,4 +25,9 @@ class UserInfoForm(MainForm):
     class Meta:
         model = UserInfo
         exclude = ['user']
-    
+
+
+class ContactForm(MainForm):
+    class Meta:
+        model = Contact
+        exclude = ['user', 'product']

@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
-from youtube.form import UserInfoForm, YoutubeProductForm
+from youtube.form import ContactForm, UserInfoForm, YoutubeProductForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -48,10 +48,24 @@ def home(request):
     context = {'channels': channels}
     return render(request, 'index.html', context)
 
-
+@login_required
 def product(request, id):
     channel = YoutubeProduct.objects.get(id=id)
-    context = {'channel': channel}
+    
+    form = ContactForm()
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            data = form.save()
+            data.user = request.user
+            data.product = channel
+            data.save()
+            messages.success(request, "Request received succesfull")
+            return redirect("product", id)
+        messages.error(request, "An error ocurred")
+        return redirect("product", id)
+        
+    context = {'channel': channel, "form":form}
     return render(request, 'product.html', context)
 
     
