@@ -43,9 +43,9 @@ class YoutubeProduct(models.Model):
     def get_age(self):
         if self.started_date is None:
             return 1
-
-        started_datetime = datetime.combine(self.started_date, datetime.min.time())
-        time_difference = datetime.today() - started_datetime
-        age_in_years = int(time_difference.days / 365.25)
-        return age_in_years
+        else:
+            started_datetime = datetime.combine(self.started_date, datetime.min.time())
+            time_difference = datetime.today() - started_datetime
+            age_in_years = int(time_difference.days / 365.25)
+            return age_in_years
     
