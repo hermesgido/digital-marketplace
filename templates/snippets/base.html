@@ -52,8 +52,12 @@
                     <a class="nav-link text-white" href="{% url 'home' %}"><i class="fa-solid fa-house"></i></i>Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="{% url 'add_product' %}"><i class="far fa-address-book"></i>Add Product</a>
+                    <a class="nav-link text-white" href="{% url 'add_product' %}"><i class="far fa-address-book"></i>Sell Youtube</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{% url 'social_media' %}"><i class="far fa-address-book"></i>Sell Social Accounts</a>
+                </li>
+               
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i></i>Profile</a>
                 </li>
@@ -113,7 +117,7 @@
                             <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>  Websites/Blogs</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Social Accounts</a>
+                            <a href="{% url 'social_accounts' %}" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i>Social Accounts</a>
                         </p>
                         <p>
                             <a href="#!" class="text-white text-decoration-none"> <i class="fa-solid fa-check" style="color: #ffffff;"></i> Other Digital</a>

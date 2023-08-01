@@ -238,6 +238,10 @@ def social_media(request):
     return render(request, 'social_media.html', context)
 
 
+def social_accounts(request):
+    
+    context = {"items": [i for i in  range(2)]}
+    return render(request, 'social_accounts.html', context)
 
 @login_required
 def profile(request):
