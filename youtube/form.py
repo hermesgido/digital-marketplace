@@ -31,3 +31,24 @@ class ContactForm(MainForm):
     class Meta:
         model = Contact
         exclude = ['user', 'product']
+        
+class WebsiteProductForm(MainForm):
+    class Meta:
+        model = WebsiteProduct
+        fields = ['domain', 'description', 'revenue_per_month',  'monetization', 'price',]
+        
+class InstagramAccountForm(MainForm):
+    class Meta:
+        model = InstagramAccount
+        fields = ['username', 'description',  'price',]
+        
+        
+class TikTokAccountAccountForm(MainForm):
+    class Meta:
+        model = TikTokAccount
+        fields = ['username', 'description',  'price',]
+        
+class TwitterAccountAccountForm(MainForm):
+    class Meta:
+        model = TwitterAccount
+        fields = ['username', 'description',  'price',]

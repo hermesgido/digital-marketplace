@@ -58,3 +58,63 @@ class Contact(models.Model):
     
     def __str__(self):
         return self.message
+   
+class WebsiteProduct(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    domain = models.CharField(max_length=200, blank=True, null=True)
+    domain_authority = models.CharField(max_length=200, blank=True, null=True)
+    monthly_visitors = models.PositiveIntegerField(null=True, blank=True)
+    started_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    website_country = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    price = models.PositiveIntegerField(null=True, blank=True)
+    revenue_per_month = models.PositiveIntegerField(null=True, blank=True)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    ch = (("Adsence", "Adsence"), ("No Monetization", "No Monetization"),("Affiliation", "Affiliation"),)
+    monetization = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="No Monetization")
+    post_views = models.PositiveIntegerField(null=True, blank=True)
+    ch = (("Pending", "Pending"), ("Approved", "Approved"),("Sold", "Sold"),)
+    status = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="Pending")
+    
+class InstagramAccount(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    username = models.CharField(max_length=200, blank=True, null=True)
+    account_id = models.CharField(max_length=200, blank=True, null=True)
+    followers = models.PositiveIntegerField(null=True, blank=True)
+    total_posts = models.PositiveIntegerField(null=True, blank=True)
+    started_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    account_country = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    price = models.PositiveIntegerField(null=True, blank=True)
+    ch = (("Pending", "Pending"), ("Approved", "Approved"),("Sold", "Sold"),)
+    status = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="Pending")
+    
+class TikTokAccount(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    username = models.CharField(max_length=200, blank=True, null=True)
+    account_id = models.CharField(max_length=200, blank=True, null=True)
+    followers = models.PositiveIntegerField(null=True, blank=True)
+    total_posts = models.PositiveIntegerField(null=True, blank=True)
+    started_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    account_country = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    price = models.PositiveIntegerField(null=True, blank=True)
+    ch = (("Pending", "Pending"), ("Approved", "Approved"),("Sold", "Sold"),)
+    status = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="Pending")
+    
+class TwitterAccount(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    username = models.CharField(max_length=200, blank=True, null=True)
+    account_id = models.CharField(max_length=200, blank=True, null=True)
+    followers = models.PositiveIntegerField(null=True, blank=True)
+    total_posts = models.PositiveIntegerField(null=True, blank=True)
+    started_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    account_country = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    price = models.PositiveIntegerField(null=True, blank=True)
+    ch = (("Pending", "Pending"), ("Approved", "Approved"),("Sold", "Sold"),)
+    status = models.CharField(max_length=200, blank=True, null=True, choices=ch, default="Pending")

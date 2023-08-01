@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
-from youtube.form import ContactForm, UserInfoForm, YoutubeProductForm
+from youtube.form import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -215,7 +215,30 @@ def edit_youtube_product(request, id):
     
     return render(request, 'edit_youtube_product.html', context)
 
- 
+def social_media(request):
+    twitter_form = TwitterAccountAccountForm()
+    instagram_form = InstagramAccountForm()
+    tiktok_form = TikTokAccountAccountForm()
+    if request.method == 'POST':
+       
+        if 'instagram_btn' in request.POST:
+            data = InstagramAccountForm(request.POST)
+        if 'tiktok_btn' in request.POST:
+            data = TikTokAccountAccountForm(request.POST)
+        if 'twitter_btn' in request.POST:
+            data = TwitterAccountAccountForm(request.POST)
+        # else:
+        #     messages.error(request, "Form not valid")
+        #     return redirect(social_media)
+        data.user = request.user
+        data.save()
+        messages.success(request,"Successfully added")
+        return redirect(social_media)       
+    context = {"twitter_form":twitter_form, "instagram_form":instagram_form, "tiktok_form":tiktok_form}
+    return render(request, 'social_media.html', context)
+
+
+
 @login_required
 def profile(request):
     your_products = YoutubeProduct.objects.all()

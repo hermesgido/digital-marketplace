@@ -1,0 +1,135 @@
+{% extends 'snippets/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    @media (min-width: 768px) {
+      /* Styles for screens larger than or equal to 768px width (non-mobile) */
+      .cx {
+        width: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+        /* Styles for screens larger than or equal to 768px width (non-mobile) */
+        .cx {
+          width: 400px;
+        }
+      }
+
+      .btn-success2{
+        height: 60px;
+        width: 500px;
+        color: #fff;
+        font-size: 22px;
+        background-color: #1c2331;
+      }
+
+      select{
+        height: 50px;
+      }
+
+  </style>
+  
+
+
+<div class="d-flex justify-content-center align-items-center pg-3 p-3 m-3 hover-shadow">
+    <div class="row no-gutters">
+        <div class="card p-3 cx"">
+            {% include 'snippets/messages.html' %}
+            <h4 class="text-center">Select Account Type</h4>
+            <br>
+<div class="choice-div">
+    <select name="social-choice" class ="form-select" id="social-choice">
+        <option value="">Choose Social Media</option>
+        <option value="twitter_sel">Twitter Account</option>
+        <option value="instagram_sel">Instagram Account</option>
+        <option value="tiktok_sel">TikTok Account</option>
+    </select>
+</div>
+            <div class="twitter_div d-none" id="twitter_a">
+                <h5 class="text-center">Enter Twitter Details</h5>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                      {% for field in twitter_form %}
+                      <div class="form-group mb-2">
+                          <label for="">{{field.label}}</label>
+                          {{field}}
+                      </div>
+                      {% endfor %}
+                      <br>
+                      <div class="d-flex justify-content-center">
+                          <button name="twitter_btn" type="submit" class="btn btn-success2">SUBMIT</button>
+                      </div>
+                  </form>
+            </div>
+
+            <div class="instagram_div d-none" id="instagram_a">
+                <h5 class="text-center">Enter Instagram Details</h5>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                      {% for field in instagram_form %}
+                      <div class="form-group mb-2">
+                          <label for="">{{field.label}}</label>
+                          {{field}}
+                      </div>
+                      {% endfor %}
+                      <br>
+                      <div class="d-flex justify-content-center">
+                          <button name="instagram_btn" type="submit" class="btn btn-success2">SUBMIT</button>
+                      </div>
+                  </form>
+            </div>
+
+            <div class="tiktok_div d-none" id="tiktok_a">
+                <h5 class="text-center">Enter TikTok Details</h5>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                      {% for field in tiktok_form %}
+                      <div class="form-group mb-2">
+                          <label for="">{{field.label}}</label>
+                          {{field}}
+                      </div>
+                      {% endfor %}
+                      <br>
+                      <div class="d-flex justify-content-center">
+                          <button name="tiktok_btn" type="submit" class="btn btn-success2">SUBMIT</button>
+                      </div>
+                  </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const inputField = document.getElementById('social-choice');
+    const twitterDiv = document.getElementById('twitter_a');
+    const instagramDiv = document.getElementById('instagram_a');
+    const tiktokDiv = document.getElementById('tiktok_a');
+
+    
+    inputField.addEventListener("change", (event) => {
+        twitterDiv.classList.add("d-none");
+        instagramDiv.classList.add("d-none");
+        tiktokDiv.classList.add("d-none");
+
+        if(event.target.value === "twitter_sel"){
+            console.log("Hello worldddddddddddddddddddd")
+            console.log(event.target.value)
+            twitterDiv.classList.remove("d-none");
+        } else if(event.target.value === "instagram_sel"){
+            instagramDiv.classList.remove("d-none");
+        } else if(event.target.value === "tiktok_sel"){
+            tiktokDiv.classList.remove("d-none");
+        }
+    });
+</script>
+
+{% endblock %}
+
